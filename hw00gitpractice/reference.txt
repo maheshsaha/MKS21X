@@ -1,6 +1,6 @@
-add -A (all)
-commit -m "<MESSAGE>"
-push
+add -A (all) [Allows you to add the selected files, or all, to the git queue]
+commit -m "<MESSAGE>" [Creates a commit that describes the most recent addition of files]
+push [Connects to the Internet to send the committed files to the git repo]
 
-git status
-git clone
+git status [Checks the current status]
+git clone [Clones the repo to local dir]
