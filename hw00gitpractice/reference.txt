@@ -1,0 +1,6 @@
+add -A (all)
+commit -m "<MESSAGE>"
+push
+
+git status
+git clone
