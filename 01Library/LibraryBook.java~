@@ -1,0 +1,16 @@
+public class LibraryBook extends Book{
+    private String callNumber;
+
+    public LibraryBook(String a, String t, String i, String c){
+	super(a,t,i);
+	callNumber = c;
+    }
+
+    public getCallNumber(){
+	return callNumber;
+    }
+
+    public setCallNumber(String c){
+	callNumber = c;
+    }
+
