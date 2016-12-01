@@ -1,0 +1,2 @@
+class CirculatingBook extends LibraryBook {
+    
