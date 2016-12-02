@@ -1,6 +1,6 @@
 import java.util.Iterator;
 
-public class superArrayIterator extends SuperArray implements Iterator<String>{
+public class superArrayIterator implements Iterator<String>{
     SuperArray data;
     int i;
 
@@ -10,4 +10,15 @@ public class superArrayIterator extends SuperArray implements Iterator<String>{
     }
 
     public boolean hasNext(){
-	return i < data.size() && data.get(i+1)
+	return i < data.size() && data.get(i+1) != null;
+    }
+
+    public String next(){
+	return data.get(i++);
+    }
+
+    public void remove(){
+	throw new UnsupportedOperationException;
+    }
+
+}
