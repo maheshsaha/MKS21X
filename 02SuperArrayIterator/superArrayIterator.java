@@ -1,24 +1,28 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class superArrayIterator implements Iterator<String>{
-    SuperArray data;
-    int i;
+    private SuperArray data;
+    private int i;
 
-    public superArray(SuperArray d){
+    public superArrayIterator(SuperArray d){
 	data = d;
 	i = 0;
     }
 
     public boolean hasNext(){
-	return i < data.size() && data.get(i+1) != null;
+	return i < data.size();
     }
 
     public String next(){
-	return data.get(i++);
+	if (hasNext())
+	    return data.get(i++);
+	else
+	    throw new NoSuchElementException();
     }
 
     public void remove(){
-	throw new UnsupportedOperationException;
+	throw new UnsupportedOperationException();
     }
 
 }
