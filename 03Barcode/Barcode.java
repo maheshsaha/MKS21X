@@ -87,6 +87,7 @@ public class Barcode implements Comparable<Barcode>{
     // 	System.out.println(a);
     // 	System.out.println(b);
     // 	//exception check
+    //  //Barcode c = new Barcode("123");
     // 	//Barcode d = new Barcode("123456");
     // 	//Barcode e = new Barcode("qwerty");
     // }
