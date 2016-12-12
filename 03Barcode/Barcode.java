@@ -18,10 +18,10 @@ public class Barcode implements Comparable<Barcode>{
 	    Integer.parseInt(zip);
 	}
 	catch (NumberFormatException e){
-	    throw new RuntimeException("ZIP Contains a non-digit");
+	    throw new IllegalArgumentException("ZIP Contains a non-digit");
       }
 	if (zip.length() != 5)
-	    throw new RuntimeException("ZIP not correct length");
+	    throw new IllegalArgumentException("ZIP not correct length");
 	else{
 	    _zip = zip;
 	    _checkDigit = checkSum(_zip)%10;
@@ -60,10 +60,10 @@ public class Barcode implements Comparable<Barcode>{
 	    Integer.parseInt(zip);
 	}
 	catch (NumberFormatException e){
-	    throw new RuntimeException("ZIP Contains a non-digit");
+	    throw new IllegalArgumentException("ZIP Contains a non-digit");
 	}
 	if (zip.length() != 5)
-	    throw new RuntimeException("ZIP not correct length");
+	    throw new IllegalArgumentException("ZIP not correct length");
 	zip += checkSum(zip)%10;
 	String x = "|";
 	for (int i = 0; i < zip.length(); i++){
@@ -83,23 +83,34 @@ public class Barcode implements Comparable<Barcode>{
     }
 
     
-    private static String toZip(String code){
+    public static String toZip(String code){
 	if (code.length() != 32)
 	    throw new IllegalArgumentException("Length of barcode is not accurate");
-	else if(code.charAt(0)!=('|') || code.charAt(31)!=('|'))
+	else if(code.charAt(0)!='|' || code.charAt(31)!='|')
 	    throw new IllegalArgumentException("Left and/or rightmost characters are not '|'");
-	else if(codeDigit(code.substring(26,31)) != (checkSum((Integer.parseInt(toZip(code))/10)+"")))
-	    throw new IllegalArgumentException("checkSum is invalid");
+	
+
+	//checkSum of code
 	else{
-	    String s = "";
-	    int x = 1;
-	    while (x < code.length()-1){
-		s += codeDigit(code.substring(x, x+5));
+	    int sum = 0;
+	    int i = 1;
+	    while (i < 22 && code.length() == 32){
+		sum += codeDigit(code.substring(i,i+5));
+		i+=5;       
 	    }
-	    return s;
+	    if(codeDigit(code.substring(26,31)) != sum%10)
+		throw new IllegalArgumentException("checkSum is invalid");
+	    else{
+		String s = "";
+		int x = 1;
+		while (x < code.length()-6){
+		    s += codeDigit(code.substring(x, x+5));
+		    x+=5;
+		}
+		return s;
+	    }
 	}
     }
-    
 
     /*
 length wrong
