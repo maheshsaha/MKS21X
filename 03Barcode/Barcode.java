@@ -1,114 +1,111 @@
 import java.util.*;
 
 public class Barcode implements Comparable<Barcode>{
-// instance variables
-   private String _zip;
-   private int _checkDigit;
+    // instance variables
+    private String _zip;
+    private int _checkDigit; //checks integrity of the barcode. If false, barcode damaged
 
-// constructors
-//precondtion: _zip.length() = 5 and zip contains only digits.
-//postcondition: throws a runtime exception zip is not the correct length
-//               or zip contains a non digit
-//               _zip and _checkDigit are initialized.
-  public Barcode(String zip) {
-      try{
-	  Integer.parseInt(zip);
+    //Array of code
+    private static String[]code = {"||:::", ":::||", "::|:|", "::||:", ":|::|", ":|:|:", ":||::", "|:::|", "|::|:", "|:|::"};
+    
+    // constructors
+    //precondtion: _zip.length() = 5 and zip contains only digits.
+    //postcondition: throws a runtime exception zip is not the correct length
+    //               or zip contains a non digit
+    //               _zip and _checkDigit are initialized.
+    public Barcode(String zip) {
+	try{
+	    Integer.parseInt(zip);
+	}
+	catch (NumberFormatException e){
+	    throw new RuntimeException("ZIP Contains a non-digit");
       }
-      catch (NumberFormatException e){
-	  throw new RuntimeException("ZIP Contains a non-digit");
-      }
-      if (zip.length() != 5)
-	  throw new RuntimeException("ZIP not correct length");
-      else{
-	  _zip = zip;
-	  _checkDigit = checkSum()%10;
-      }
-  }
-// postcondition: Creates a copy of a bar code.
-  public Barcode clone(){
-      return new Barcode(_zip);
-  }
-
-
-// postcondition: computes and returns the check sum for _zip
-  private int checkSum(){
-      int sum = 0;
-      for (int i = 0; i < _zip.length(); i++){
-	  sum += _zip.charAt(i) - '0'; // subtracting by '0' allows you to get int value of char
-      }
-      return sum;     
-  }
-
-//postcondition: format zip + check digit + Barcode 
-//ex. "084518  |||:::|::|::|::|:|:|::::|||::|:|"      
-  public String toString(){
-      String s = _zip + _checkDigit + "  |";
-      String t = _zip + _checkDigit;
-      for (int x = 0; x < t.length(); x++){
-	  int i = t.charAt(x) - '0';
-	  switch(i){
-	  case 0: s += "||:::";
-	      break;
-	  case 1: s += ":::||";
-	      break;
-	  case 2: s += "::|:|";
-	      break;
-	  case 3: s += "::||:";
-	      break;
-	  case 4: s += ":|::|";
-	      break;
-	  case 5: s += ":|:|:";
-	      break;
-	  case 6: s += ":||::";
-	      break;
-	  case 7: s += "|:::|";
-	      break;
-	  case 8: s += "|::|:";
-	      break;
-	  case 9: s += "|:|::";
-	      break;
-	  default:
-	      break;
-	  }
-      }
-      return s + "|";
-  }
-
-
+	if (zip.length() != 5)
+	    throw new RuntimeException("ZIP not correct length");
+	else{
+	    _zip = zip;
+	    _checkDigit = checkSum(_zip)%10;
+	}
+    }
+    
+    // postcondition: computes and returns the check sum for _zip 
+    private static int checkSum(String n){
+	int sum = 0;
+	for (int i = 0; i < n.length(); i++){
+	    sum += n.charAt(i) - '0'; // subtracting by '0' allows you to get int value of char
+	}
+	return sum;     
+    }
+    
+    //postcondition: format zip + check digit + Barcode 
+    //ex. "084518  |||:::|::|::|::|:|:|::::|||::|:|"      
+    public String toString(){
+	String t = _zip + _checkDigit + "  |";
+	int x = 0;
+        while (x < _zip.length()+1){
+	    t += code[(_zip+_checkDigit).charAt(x)-'0'];
+	    x++;
+	}
+	return t + "|";
+    }
+    
+    
     // postcondition: compares the zip + checkdigit, in numerical order. 
     public int compareTo(Barcode other){
-	return (Integer.valueOf(_zip + _checkDigit)).compareTo(Integer.valueOf(other._zip + other._checkDigit));
+	return (_zip + _checkDigit).compareTo(other._zip + other._checkDigit);
     }
-    // TESTING
-    
-    // public static void main(String[]args) {
-    // 	Barcode a = new Barcode("08451");
-    // 	Barcode b = new Barcode("11111");
-    // 	System.out.println(a);
-    // 	System.out.println(b);
-    // 	//exception check
-    //  //Barcode c = new Barcode("123");
-    // 	//Barcode d = new Barcode("123456");
-    // 	//Barcode e = new Barcode("qwerty");
-    // }
 
-    // TESTING THE COMPARETO FUNCTIONALITY AND LIMITATIONS
-    
-    // public static void main(String[] args) {
+    public static String toCode(String zip){
+	try{
+	    Integer.parseInt(zip);
+	}
+	catch (NumberFormatException e){
+	    throw new RuntimeException("ZIP Contains a non-digit");
+	}
+	if (zip.length() != 5)
+	    throw new RuntimeException("ZIP not correct length");
+	zip += checkSum(zip)%10;
+	String x = "|";
+	for (int i = 0; i < zip.length(); i++){
+	    x += code[zip.charAt(i) - '0'];
+	}
+	return x + "|";
+    }
 
-    // 	// compares two Integer objects numerically
-    //     String obj1 = "08451";
-    // 	String obj2 = "11111";
-    // 	int compared = obj1.compareTo(obj2);
-	
-    // 	if(compared > 0) {
-    // 	    System.out.println("obj1 is greater than obj2");
-    // 	}
-    // 	else if(compared < 0) {
-    // 	    System.out.println("obj1 is less than obj2");
-    // 	}
-    // 	else {
-    // 	    System.out.println("obj1 is equal to obj2");
-    // 	}
-    // }
+    private static int codeDigit(String d){ //turns one coded digit into digit
+	int x = 0;
+	while (x < code.length){
+	    if (code[x].equals(d))
+		return x;
+	    x ++;
+	}
+	throw new IllegalArgumentException("Not a valid int/Non-barcode chars in use");
+    }
+
+    
+    private static String toZip(String code){
+	if (code.length() != 32)
+	    throw new IllegalArgumentException("Length of barcode is not accurate");
+	else if(code.charAt(0)!=('|') || code.charAt(31)!=('|'))
+	    throw new IllegalArgumentException("Left and/or rightmost characters are not '|'");
+	else if(codeDigit(code.substring(26,31)) != (checkSum((Integer.parseInt(toZip(code))/10)+"")))
+	    throw new IllegalArgumentException("checkSum is invalid");
+	else{
+	    String s = "";
+	    int x = 1;
+	    while (x < code.length()-1){
+		s += codeDigit(code.substring(x, x+5));
+	    }
+	    return s;
+	}
+    }
+    
+
+    /*
+length wrong
+invalid set of symbols
+bad checksum
+side bar is wrong
+invalid chars
+    */
 }
