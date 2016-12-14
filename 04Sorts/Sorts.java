@@ -39,7 +39,7 @@ public class Sorts{
 		   
     public static void main(String[]arg){
     	int []data = {3,1,2,3,6,54,7,4,2,8};
-     insertionSort(data);
+	selectionSort(data);
     	for (int i = 0; i < data.length; i++){
     	    System.out.println(data[i]);
     	}
