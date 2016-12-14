@@ -20,10 +20,28 @@ public class Sorts{
 		    tempmin = j;
 		}
 	    }
-	    int replace = data[index];
-	    data[tempmin] = replace;
+	    data[tempmin] = data[index];
 	    data[index] = min;
 	    index++;
 	}
+    }
+    
+    public static void insertionSort(int[]data){
+	for(int index = 1; index < data.length; index++){
+	    for(int j = 0; j < data.length-1; j++)
+	    if (data[index] < data[j]){
+		int temp = data[j];
+		data[j] = data[index];
+		data[index] = temp;
+	    }
+	}
+    }
+		   
+    public static void main(String[]arg){
+    	int []data = {3,1,2,3,6,54,7,4,2,8};
+     insertionSort(data);
+    	for (int i = 0; i < data.length; i++){
+    	    System.out.println(data[i]);
+    	}
     }
 }
