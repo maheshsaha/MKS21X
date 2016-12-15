@@ -53,7 +53,6 @@ public class Sorts{
 	    }
       	}
 	int i = 1;
-	int counter = 0;
 	while(i < data.length){
 	    if (data[i-1]>data[i])
 	        bubbleSort(data);
@@ -64,7 +63,7 @@ public class Sorts{
     
   
     public static void main(String[]arg){
-    	int []data = {3,1,2,3,6,54,7,4,2,8};
+    	int []data = {9,8,7,6,5,4,3,2,1};
         bubbleSort(data);
     	for (int i = 0; i < data.length; i++){
     	    System.out.println(data[i]);
