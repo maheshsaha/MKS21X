@@ -9,7 +9,7 @@ public class Sorts{
      *Upon completion, the elements of the array will be in increasing order.
      *@param data  the elements to be sorted.
      */
-    public static void selectionSort(int[] data){
+    public static void selectionSort(int[] data){//extra assignment statement, don't need to store value of the min
 	int index = 0;
 	while(index < data.length-1){
 	    int min = data[index];
@@ -60,8 +60,22 @@ public class Sorts{
 	}
     }
 
-    
-  
+    //mr k
+    public static void bubbleSorts(int[]data){
+	boolean swapped = true;
+	for(int end = data.length - 1; end > 0 && swapped; end --){
+	    swapped = false;
+	    for(int i = 0; i < end; i++){
+		if(data[i]>data[i+1]){
+		    int temp = data[i];
+		    data[i] = data[i+1];
+		    data[i+1] = temp;
+		    swapped = true;
+		}
+	    }
+	}
+    }
+
     public static void main(String[]arg){
     	int []data = {9,8,7,6,5,4,3,2,1};
         bubbleSort(data);
