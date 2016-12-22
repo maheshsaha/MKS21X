@@ -76,11 +76,29 @@ public class Sorts{
 	}
     }
 
+    /*
     public static void main(String[]arg){
-    	int []data = {9,8,7,6,5,4,3,2,1};
-        bubbleSort(data);
+    	int []data = {1,5,3,4,2,6,8,2,1,3,7,5};
+        selectionSort(data);
+	System.out.println("SSort");
     	for (int i = 0; i < data.length; i++){
     	    System.out.println(data[i]);
     	}
+	insertionSort(data);
+	System.out.println("ISort");
+	for (int i = 0; i < data.length; i++){
+	    System.out.println(data[i]);
+	}
+	bubbleSort(data);
+	System.out.println("Recursive BSort");
+	for (int i = 0; i < data.length; i++){
+    	    System.out.println(data[i]);
+    	}
+	bubbleSorts(data);
+	System.out.println("Mr. K BSort");
+	for (int i = 0; i < data.length; i++){
+    	    System.out.println(data[i]);
+    	}
     }
+    */
 }
