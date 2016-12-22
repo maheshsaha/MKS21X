@@ -25,15 +25,14 @@ public class Tempify extends JFrame implements ActionListener{
 
 	intemp = new JLabel("Input Temperature:");
 	outtemp = new JLabel("Output Temperature:");
-	input = new JTextField(32);
+	input = new JTextField();
 	CtoF = new JButton("Celsius to Fahrenheit");
 	CtoF.addActionListener(this);
 	CtoF.setActionCommand("1");
 	FtoC = new JButton("Fahrenheit to Celsius");
 	FtoC.addActionListener(this);
 	FtoC.setActionCommand("2");
-	output = new JTextField(0);
-	output.setEditable(false);
+	output = new JTextField();
 	pane.add(intemp);
 	pane.add(input);
 	pane.add(CtoF);
